@@ -1,6 +1,6 @@
 class CreateAmountService
   def initialize(amount)
-    @amount = amount
+    @amount = amount.to_i
   end
 
   def call

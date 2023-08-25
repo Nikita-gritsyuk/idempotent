@@ -9,7 +9,7 @@ module IdempotentMethods
 
   included do
     rescue_from IdempotentError do |e|
-      render json: { error: e.message }, status: 404
+      render json: { status: 'error', message: e.message }, status: :unprocessable_entity
     end
   end
 
@@ -22,6 +22,10 @@ module IdempotentMethods
   def save_idempotent_key!
     return if params['idempotency_key'].blank?
 
-    raise IdempotentError unless REDIS.set(params['idempotency_key'], true, nx: true, ex: 10.seconds)
+    raise IdempotentError unless REDIS.set(idempotency_key, true, nx: true, ex: 10.seconds)
+  end
+
+  def idempotency_key
+    [Rails.env, params['idempotency_key']].join(':')
   end
 end

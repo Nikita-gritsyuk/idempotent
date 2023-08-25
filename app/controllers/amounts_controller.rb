@@ -3,13 +3,17 @@ class AmountsController < ApplicationController
 
   include IdempotentMethods
 
-  idempotent_methods [:create]
+  idempotent_methods [:increment]
 
   def index; end
 
   def increment
     render json: { status: 'ok',
                    total_amount: create_amount_service.call }
+  rescue ArgumentError => e
+    render json: { status: 'error',
+                   message: e.message },
+           status: :unprocessable_entity
   end
 
   private
