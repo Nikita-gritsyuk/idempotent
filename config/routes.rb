@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :amounts, only: %i[index]
+  post '/amounts/increment', to: 'amounts#increment'
 end

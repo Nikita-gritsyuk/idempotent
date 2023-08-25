@@ -29,7 +29,7 @@ gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
-
+gem 'redis-rails'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -57,6 +57,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  # use pry
+  gem "pry"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
