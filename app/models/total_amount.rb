@@ -18,7 +18,7 @@ class TotalAmount < ApplicationRecord
   end
 
   def self.get
-    pluck(:value).first || 0
+    pick(:value) || 0
   end
 
   def self.natural_number?(value)

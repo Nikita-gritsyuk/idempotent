@@ -21,8 +21,7 @@ module IdempotentMethods
 
   def save_idempotent_key!
     return if params['idempotency_key'].blank?
-
-    raise IdempotentError unless REDIS.set(idempotency_key, true, nx: true, ex: 10.seconds)
+    raise IdempotentError unless REDIS.set(idempotency_key, true, nx: true, ex: 2.seconds)
   end
 
   def idempotency_key
