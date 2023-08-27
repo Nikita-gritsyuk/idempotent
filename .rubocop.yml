@@ -64,3 +64,6 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
     - config/environments/development.rb
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/rails_helper.rb

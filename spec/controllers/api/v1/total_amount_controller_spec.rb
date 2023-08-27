@@ -83,7 +83,9 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
   context 'when idempotency_key is provided' do
     before do
-      REDIS.del([Rails.env, idempotency_key].join(':'))
+      REDIS.with do |redis|
+        redis.del([Rails.env, idempotency_key].join(':'))
+      end
     end
 
     let(:idempotency_key) { '123' }

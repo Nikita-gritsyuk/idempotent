@@ -35,7 +35,9 @@ module IdempotentMethods
     # Set the key in Redis with a time-to-live (TTL) of either the value of the
     # IDEMPOTENT_KEY_TTL environment variable (if it's set) or 1 hour.
     ttl = ENV['IDEMPOTENT_KEY_TTL']&.to_i&.minutes || 1.hour
-    raise IdempotentError unless REDIS.set(idempotency_key, true, nx: true, ex: ttl)
+    REDIS.with do |redis|
+      raise IdempotentError unless redis.set(idempotency_key, true, nx: true, ex: ttl)
+    end
   end
 
   # This method returns the idempotency key, which is a combination of the Rails
