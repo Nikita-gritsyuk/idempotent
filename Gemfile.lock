@@ -131,6 +131,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.19.0)
+    mock_redis (0.37.0)
     msgpack (1.7.2)
     net-imap (0.3.7)
       date
@@ -287,6 +288,7 @@ DEPENDENCIES
   faker
   importmap-rails
   jbuilder
+  mock_redis
   pg
   pry
   puma (~> 5.0)

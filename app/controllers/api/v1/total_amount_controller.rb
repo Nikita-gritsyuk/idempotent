@@ -15,7 +15,7 @@ module Api
       private
 
       def create_amount_service
-        @create_amount_service ||= CreateAmountService.new(params[:value])
+        @create_amount_service ||= IncrementAmountService.new(params[:value])
       end
     end
   end

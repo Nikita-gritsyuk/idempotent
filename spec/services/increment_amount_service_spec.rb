@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CreateAmountService do
+RSpec.describe IncrementAmountService do
   describe '#call' do
     let(:amount) { 10 }
 
@@ -54,7 +54,7 @@ RSpec.describe CreateAmountService do
           subject
         rescue StandardError
           nil
-        end.to change { TotalAmount.get }.by(0)
+        end.to change { TotalAmount.current_value }.by(0)
       end
     end
   end

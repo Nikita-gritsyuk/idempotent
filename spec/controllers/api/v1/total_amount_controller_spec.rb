@@ -68,7 +68,7 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
     it 'returns json with error message' do
       post :increment, params: { value: amount }
-      expect(JSON.parse(response.body)['message']).to eq('Amount to add should be a natural number')
+      expect(JSON.parse(response.body)['message']).to eq('Value must be a natural number')
     end
 
     it 'does not create amount' do
@@ -116,10 +116,10 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
       it 'does not increments existing amount' do
         expect { post :increment, params: { value: amount, idempotency_key: } }.to change {
-                                                                                      TotalAmount.get
+                                                                                      TotalAmount.current_value
                                                                                     }.by(amount)
         expect { post :increment, params: { value: amount, idempotency_key: } }.to change {
-                                                                                      TotalAmount.get
+                                                                                      TotalAmount.current_value
                                                                                     }.by(0)
       end
     end

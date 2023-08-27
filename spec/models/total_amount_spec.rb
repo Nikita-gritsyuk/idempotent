@@ -53,13 +53,13 @@ RSpec.describe TotalAmount, type: :model do
         end
 
         it 'returns amount' do
-          expect(TotalAmount.get).to eq(100)
+          expect(TotalAmount.current_value).to eq(100)
         end
       end
 
       context 'when there is no TotalAmount in db' do
         it 'returns 0' do
-          expect(TotalAmount.get).to eq(0)
+          expect(TotalAmount.current_value).to eq(0)
         end
       end
     end
