@@ -15,11 +15,21 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+RSpec.shared_context "redis_mock" do
+  before do
+    REDIS = MockRedis.new
+  end
+
+  after do
+    REDIS = nil
+  end
+end
+
 RSpec.configure do |config|
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include_context "redis_mock", redis_mock: true
+  config.fixture_path = Rails.root.join("spec/fixtures")
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 end
-
-REDIS = MockRedis.new

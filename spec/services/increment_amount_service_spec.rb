@@ -4,15 +4,20 @@ RSpec.describe IncrementAmountService do
   describe '#call' do
     let(:amount) { 10 }
 
-    subject { described_class.new(amount).call }
+    let(:service) { described_class.new(amount) }
 
     context 'when amount is valid and there no TotalAmount in db yet' do
       it 'returns amount' do
-        expect(subject).to eq(amount)
+        expect(service.call).to eq(amount)
+      end
+
+      it 'increments existing amount' do
+        expect { service.call }.to change { TotalAmount.current_value }.by(amount)
+        expect { service.call }.to change { TotalAmount.current_value }.by(amount)
       end
 
       it 'creates amount' do
-        expect { subject }.to change { TotalAmount.count }.by(1)
+        expect { service.call }.to change { TotalAmount.count }.by(1)
       end
     end
 
@@ -22,15 +27,15 @@ RSpec.describe IncrementAmountService do
       end
 
       it 'returns amount' do
-        expect(subject).to eq(amount + 100)
+        expect(service.call).to eq(amount + 100)
       end
 
       it 'use existing amount' do
-        expect { subject }.to change { TotalAmount.count }.by(0)
+        expect { service.call }.to change { TotalAmount.count }.by(0)
       end
 
       it 'increments existing amount' do
-        expect { subject }.to change { TotalAmount.first.value }.by(amount)
+        expect { service.call }.to change { TotalAmount.first.value }.by(amount)
       end
     end
 
@@ -38,12 +43,12 @@ RSpec.describe IncrementAmountService do
       let(:amount) { -10 }
 
       it 'raises ArgumentError' do
-        expect { subject }.to raise_error(ArgumentError)
+        expect { service.call }.to raise_error(ArgumentError)
       end
 
       it 'does not create amount' do
         expect do
-          subject
+          service.call
         rescue StandardError
           nil
         end.to change { TotalAmount.count }.by(0)
@@ -51,7 +56,7 @@ RSpec.describe IncrementAmountService do
 
       it 'does not increment existing amount' do
         expect do
-          subject
+          service.call
         rescue StandardError
           nil
         end.to change { TotalAmount.current_value }.by(0)

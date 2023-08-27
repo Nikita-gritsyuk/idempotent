@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::TotalAmountController, type: :controller do
   let(:amount) { 10 }
-  
+
   context 'when amount is valid and there no TotalAmount in db yet' do
     it 'returns http success' do
       post :increment, params: { value: amount }
@@ -116,11 +116,11 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
       it 'does not increments existing amount' do
         expect { post :increment, params: { value: amount, idempotency_key: } }.to change {
-                                                                                      TotalAmount.current_value
-                                                                                    }.by(amount)
+                                                                                     TotalAmount.current_value
+                                                                                   }.by(amount)
         expect { post :increment, params: { value: amount, idempotency_key: } }.to change {
-                                                                                      TotalAmount.current_value
-                                                                                    }.by(0)
+                                                                                     TotalAmount.current_value
+                                                                                   }.by(0)
       end
     end
   end

@@ -2,7 +2,6 @@ require: rubocop-rails
 # exclude spec folder flr all cops
 AllCops:
   Exclude:
-    - spec/**/*
     - db/schema.rb
     - bin/**/*
     
@@ -63,4 +62,5 @@ Style/GlobalVars:
     - config/initializers/_REDIS.rb
 Metrics/BlockLength:
   Exclude:
+    - spec/**/*
     - config/environments/development.rb
