@@ -79,5 +79,6 @@ group :test do
   gem "capybara"
   gem "mock_redis"
   gem "selenium-webdriver"
+  gem "simplecov"
   gem "webdrivers"
 end

@@ -36,3 +36,6 @@
 
 # Ignore db configuration
 /config/database.yml
+
+# Ignore simplecov coverage reports
+/coverage
