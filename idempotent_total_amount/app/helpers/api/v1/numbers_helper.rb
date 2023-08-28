@@ -1,6 +1,6 @@
 module Api
   module V1
-    module TotalAmountHelper
+    module NumbersHelper
     end
   end
 end

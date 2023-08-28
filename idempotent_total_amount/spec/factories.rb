@@ -1,5 +1,6 @@
 FactoryBot.define do
-  factory(:total_amount) do
+  factory(:number) do
     value { 100 }
+    cumulative_sum { 100 }
   end
 end
