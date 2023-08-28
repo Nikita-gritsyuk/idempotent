@@ -16,6 +16,9 @@ gem 'rack-cors', require: 'rack/cors'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Validate Api endpoints params
+gem 'request_params_validation'
+
 # Use Redis adapter to run Action Cable in production
 gem "connection_pool"
 gem "redis", "~> 4.0"

@@ -11,19 +11,14 @@ class TotalAmount < ApplicationRecord
 
   # Adds the given value to the total amount and returns the new value
   def self.increment!(value)
-    raise ArgumentError, 'Value must be a natural number' unless natural_number?(value)
+    raise ArgumentError, 'Value must be a integer.' unless value.is_a?(Integer)
+    raise ArgumentError, 'Value must be a natural number.' unless value.positive?
 
     create unless exists?
 
     connection.execute(
       sanitize_sql_array([increment_sql_query, value])
     ).first['value']
-  end
-
-  # Private methods going here
-  # Returns true if the given value is a natural number, false otherwise
-  def self.natural_number?(value)
-    value.to_i.to_s == value.to_s && value.to_i.positive?
   end
 
   # IMPORTANT: this qury is atomic, so it's safe to use it in a multi-threaded environment
@@ -35,5 +30,5 @@ class TotalAmount < ApplicationRecord
     SQL
   end
 
-  private_class_method :natural_number?, :increment_sql_query
+  private_class_method :increment_sql_query
 end

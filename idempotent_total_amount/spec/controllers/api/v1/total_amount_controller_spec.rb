@@ -63,7 +63,9 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['status']).to eq('error')
-      expect(JSON.parse(response.body).dig('error', 'message')).to eq('Value must be a natural number')
+      expect(JSON.parse(response.body).dig('error', 'message')).to eq(
+        'The value for the parameter \'value\' is invalid. Value should be a natural integer.'
+      )
     end
 
     it 'does not create amount' do
@@ -84,7 +86,9 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['status']).to eq('error')
-      expect(JSON.parse(response.body).dig('error', 'message')).to eq('Value must be a natural number')
+      expect(JSON.parse(response.body).dig('error', 'message')).to eq(
+        'The value for the parameter \'value\' is invalid. Value should be a valid integer'
+      )
     end
 
     it 'does not create amount' do
@@ -105,7 +109,9 @@ RSpec.describe Api::V1::TotalAmountController, type: :controller do
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['status']).to eq('error')
-      expect(JSON.parse(response.body).dig('error', 'message')).to eq('Value must be a natural number')
+      expect(JSON.parse(response.body).dig('error', 'message')).to eq(
+        'The value for the parameter \'value\' is invalid. Value should be a natural integer.'
+      )
     end
 
     it 'does not create amount' do
